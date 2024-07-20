@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+    <header class="flex justify-between items-center p-4 bg-blue-700 text-white">
+        <h1 class="text-4xl">ToDo List</h1>
+        <nav class="text-2xl flex gap-4">
+            <a href="../index.html" class="hover:underline">Ver Lista Tareas</a>
+            <a href="./crearTarea.html" class="hover:underline">Nueva Tarea</a>
+            <a href="./modificarTarea.html" class="hover:underline">Modificar Tarea</a>
+        </nav>
+    </header>
+
+    <main id="app">
+        <section class="flex justify-center mt-8">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                <h2 class="text-2xl mb-4">Modificar Tarea</h2>
+                <form class="flex flex-col" @submit.prevent="modificarTarea">
+                    <label class="mb-2">
+                        <span class="text-gray-700">Seleccionar Tarea</span>
+                        <select v-model="tareaSeleccionada" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                            <option v-for="task in tareas" :key="task.id" :value="task.id">{{ task.nombre }}</option>
+                        </select>
+                    </label>
+                    <button type="button" @click="cargarTareaExistente" class="bg-blue-500 text-white px-4 py-2 rounded mt-4">Cargar Tarea</button>
+                    <label class="mb-2">
+                        <span class="text-gray-700">Nombre de la Tarea</span>
+                        <input type="text" v-model="nombre" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                    </label>
+                    <label class="mb-2">
+                        <span class="text-gray-700">Fecha de Vencimiento</span>
+                        <input type="date" v-model="fechaDeVencimiento" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                    </label>
+                    <label class="mb-2">
+                        <span class="text-gray-700">Estado</span>
+                        <select v-model="estado" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                            <option value="ACTIVA">Activa</option>
+                            <option value="COMPLETADA">Completada</option>
+                            <option value="DIFERIDA">Diferida</option>
+                        </select>
+                    </label>
+                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded mt-4">Guardar</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    
+</body>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="../modificarTarea.js"></script>
+</html>

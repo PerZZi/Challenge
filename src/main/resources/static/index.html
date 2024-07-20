@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+    <div id="app">
+        <!-- Header -->
+        <header class="flex justify-between items-center p-4 bg-blue-700 text-white">
+            <h1 class="text-4xl">ToDo List</h1>
+            <nav class="text-2xl flex gap-4">
+                <a href="./index.html" class="hover:underline">Ver Lista Tareas</a>
+                <a href="./pages/crearTarea.html" class="hover:underline">Nueva Tarea</a>
+                <a href="./pages/modificarTarea.html" class="hover:underline">Modificar Tarea</a>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="p-8">
+            <!-- Tabla de Tareas -->
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <table class="min-w-full bg-white">
+                    <thead class="bg-gray-800 text-white">
+                        <tr>
+                            <th class="w-1/3 py-2">Nombre de la Tarea</th>
+                            <th class="w-1/3 py-2">Fecha de Vencimiento</th>
+                            <th class="w-1/3 py-2">Estado</th>
+                            <th class="py-2">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template v-for="task in tareas" :key="task.id">
+                            <tr class="text-gray-700">
+                                <td class="py-2 px-4 border-b">{{ task.nombre }}</td>
+                                <td class="py-2 px-4 border-b">{{ new Date(task.fechaDeVencimiento) }}</td>
+                                <td class="py-2 px-4 border-b">{{ task.estado }}</td>
+                                <td class="py-2 px-4 border-b">
+                                    <a :href="'/pages/modificarTarea.html?id=' + task.id" class="bg-yellow-500 text-white px-2 py-1 rounded mr-2">Modificar</a>
+                                    <button @click.prevent="deleteTareas(task.id)"
+                                        class="bg-red-500 text-white px-2 py-1 rounded mr-2">Eliminar</button>
+                                    <button @click.prevent="completarTarea(task.id)"
+                                        class="bg-blue-500 text-white px-2 py-1 rounded">Marcar como completada</button>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="./tailwind.config.js"></script>
+<script src="./index.js"></script>
+
+</html>
